@@ -9,23 +9,33 @@
 // 1. feladat
 // állapítsátok meg, hogy a bemeneti listában van-e ismert életkorú kiskorú (Age < 18)
 let hasKnownMinor (people: Person list) : bool =
-    failwith "TODO"
+    people |> List.exists (function { Age = Some a } when a < 18 -> true | _ -> false) 
+//        (fun p -> 
+//            match p with
+//            | { Age = Some a } when a < 18 -> true
+//            | _ -> false
+//        )
+        //p.Age.IsSome && p.Age.Value < 18)
 
 // 2. feladat
 // ismert életkorú emberek korának átlaga
 // tipp: "float" segítségével konvertált törtre az életkort, hogy tudj jól átlagolni
 let averageKnownAge (people: Person list) : float =
-    failwith "TODO"
+    people 
+    |> List.choose (function { Age = Some a } -> Some (float a) | _ -> None)
+    |> List.average
 
 // 3. feladat
 // add vissza az ismeretlen korú emberek neveit listában
 let withUnknownAge (people: Person list) : string list =
-    failwith "TODO"
+    people 
+    |> List.choose (function { Name = n; Age = None } -> Some n | _ -> None)
 
 /// 4. feladat                                  
 // add vissza az ismert korú emberek neveit és életkorát párokban (tuple)
 let withKnownAge (people: Person list) : (string * int) list =
-    failwith "TODO"
+    people 
+    |> List.choose (function { Name = n; Age = Some a } -> Some (n, a) | _ -> None)
 
 // tesztelheted: ez mind hiba nélkül kell fusson:
 let testPeople = [
